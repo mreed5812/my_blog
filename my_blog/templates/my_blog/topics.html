@@ -1,0 +1,17 @@
+{% extends "my_blog/base.html" %}
+
+{% block content %}
+
+<p>Topics</p>
+
+<ul>
+    {% for topic in topics %}
+        <li>{{ topic }}</li>
+    <!--If topcs is empty-->
+    {% empty %}
+        <li>No topics have been added yet.</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock content %}
