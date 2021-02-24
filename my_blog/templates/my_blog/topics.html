@@ -2,16 +2,19 @@
 
 {% block content %}
 
-<p>Topics</p>
+    <p>Topics</p>
 
-<ul>
-    {% for topic in topics %}
-        <li>{{ topic }}</li>
-    <!--If topcs is empty-->
-    {% empty %}
-        <li>No topics have been added yet.</li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for topic in topics %}
+            <li>
+                <a href="{% url 'my_blog:topic' topic.id %}">{{ topic }}</a>
+            </li>
+        <!--If topcs is empty-->    
+        {% empty %}
+            <li>No topics have been added yet.</li>
+        {% endfor %}
+    </ul>
 
+    <a href="{% url 'my_blog:new_topic' %}">Add a new topic</a>
 
 {% endblock content %}

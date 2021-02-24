@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Topic
+from .forms import TopicForm
 
 # Create your views here.
 def index(request):
@@ -12,3 +13,26 @@ def topics(request):
     topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'my_blog/topics.html', context)
+
+def topic(request, topic_id):
+    #Detail page for a topic
+    topic = Topic.objects.get(id=topic_id)
+    entries = topic.entry_set.order_by('-date_added')
+    context = {'topic': topic, 'entries': entries}
+    return render(request, 'my_blog/topic.html', context)
+
+def new_topic(request):
+    #Add new topic
+    if request.method != 'POST':
+        #No data submitted, create a blank form.
+        form = TopicForm()
+    else:
+        #POST data submitted
+        form = TopicForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('my_blog:topics')
+    
+    #Display a blank form
+    context = {'form': form}
+    return render(request, 'my_blog/new_topic.html', context)
