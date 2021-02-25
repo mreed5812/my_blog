@@ -6,7 +6,7 @@
 
     <p>Edit entry:</p>
 
-    <form action="{% url 'my_blog:edit_entry' topic.id %}" method='POST' >
+    <form action="{% url 'my_blog:edit_entry' entry.id %}" method='POST' >
         {% csrf_token %}
         {{ form.as_p }}
         <button name='submit'>Save changes</button>
